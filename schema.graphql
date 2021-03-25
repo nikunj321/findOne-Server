@@ -1,0 +1,21 @@
+type Query {
+    hello: String!
+    user: String!
+    company: [Company!]!
+}
+
+type Mutation {
+    addCompany(name:String! email:String!): Company
+}
+
+type Company {
+    id: ID!
+    name: String!
+    email: String!
+}
+
+type Job {
+    title: String!
+    description: String!
+    role: String!
+}

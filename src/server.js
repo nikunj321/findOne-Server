@@ -14,6 +14,7 @@ const resolvers = [
     company
 ];
 
+
 const prisma = new PrismaClient();
 
 

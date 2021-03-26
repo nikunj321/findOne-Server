@@ -2,20 +2,44 @@ type Query {
     hello: String!
     user: String!
     company: [Company!]!
+    job: [Job!]!
+    # findCompanyByName(name:String!): Company
 }
 
 type Mutation {
+    # create new Company
     addCompany(name:String! email:String!): Company
+    # create new Job for the company
+    createNewJob(title: String! description: String! role: String! email:String! name:String!): Job
+    # write review for the company
+    writeReview(star:Float! description: String! email:String! name:String!): Review
 }
 
 type Company {
     id: ID!
     name: String!
     email: String!
+    job: [Job]!
+    review: [Review]!
 }
 
 type Job {
+    id: ID!
     title: String!
     description: String!
     role: String!
+    createdAt: DateTime
+    company: Company!
 }
+
+type Review {
+    id: ID!
+    star: Float!
+    description: String!
+}
+
+# type Error {
+#     description: String!
+# }
+
+scalar DateTime

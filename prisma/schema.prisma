@@ -11,14 +11,27 @@ generator client {
 }
 
 model Company {
-  id    String @unique @default(cuid())
-  name  String
-  email String @unique
+  id     String   @unique @default(cuid())
+  name   String
+  email  String   @unique
+  job    Job[]
+  review Review[]
 }
 
 model Job {
-  id          Int    @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   title       String
   description String
   role        String
+  createdAt   DateTime @default(now())
+  company     Company  @relation(fields: [companyId], references: [id])
+  companyId   String
+}
+
+model Review {
+  id          Int     @id @default(autoincrement())
+  star        Float
+  description String
+  company     Company @relation(fields: [companyId], references: [id])
+  companyId   String
 }

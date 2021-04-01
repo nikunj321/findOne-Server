@@ -8,11 +8,13 @@ type Query {
 
 type Mutation {
     # create new Company
-    addCompany(name:String! email:String!): Company
+    addCompany(name:String! email:String! password:String!): Company
     # create new Job for the company
     createNewJob(title: String! description: String! role: String! email:String! name:String!): Job
     # write review for the company
     writeReview(star:Float! description: String! email:String! name:String!): Review
+    # login user/company
+    login(email: String! password:String!): Payload!
 }
 
 type Company {
@@ -41,5 +43,10 @@ type Review {
 # type Error {
 #     description: String!
 # }
+
+type Payload {
+    accessToken: String!
+    refreshToken: String!
+}
 
 scalar DateTime

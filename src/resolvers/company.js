@@ -1,12 +1,15 @@
+const { hash } = require("bcryptjs");
+
 module.exports = {
 	Query: {
-		company: async (_, args, { prisma }) => {
+		company: async (_, args, { prisma, user }) => {
 			const company = await prisma.company.findMany({
 				include: {
 					job: true,
 					review: true,
 				}
 			});
+
 			return company;
 		},
 		job: async (_, args, { prisma }) => {
@@ -31,11 +34,19 @@ module.exports = {
 		// }
 	},
 	Mutation: {
-		addCompany: async (_, { name, email }, { prisma }) => {
+		addCompany: async (_, { name, email, password }, { prisma }) => {
 			const newCompany = await prisma.company.create({
 				data: {
 					name,
 					email
+				}
+			});
+
+			const passHash = await hash(password, 12);
+			const newUser = await prisma.user.create({
+				data: {
+					email,
+					passHash
 				}
 			});
 
